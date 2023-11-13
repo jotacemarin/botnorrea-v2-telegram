@@ -27,4 +27,5 @@ functions:
   telegramSetWebhook: ${file(./src/functions/telegram_set_webhook/function.yml)}
   telegramWebhook: ${file(./src/functions/telegram_webhook/function.yml)}
   telegramSendMessage: ${file(./src/functions/telegram_send_message/function.yml)}
+  telegramSendPhoto: ${file(./src/functions/telegram_send_photo/function.yml)}
   telegramDebug: ${file(./src/functions/telegram_debug/function.yml)}

@@ -11,6 +11,7 @@
     "local:telegramSetWebhook": "sls invoke local -f telegramSetWebhook -p mock_events/event_telegram_set_webhook.json --stage dev",
     "local:telegramWebhook": "sls invoke local -f telegramWebhook -p mock_events/event_telegram_webhook.json --stage dev",
     "local:telegramSendMessage": "sls invoke local -f telegramSendMessage -p mock_events/event_telegram_send_message.json --stage dev",
+    "local:telegramSendPhoto": "sls invoke local -f telegramSendPhoto -p mock_events/event_telegram_send_photo.json --stage dev",
     "local:telegramDebug": "sls invoke local -f telegramDebug -p mock_events/event_telegram_debug.json --stage dev"
   },
   "repository": {

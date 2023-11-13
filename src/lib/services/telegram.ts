@@ -31,6 +31,18 @@ export interface SendMessageParams {
   reply_markup?: any;
 }
 
+export interface SendPhotoParams {
+  chat_id: number | string;
+  photo: string;
+  caption?: string;
+  parse_mode?: FormattingOptionsTg;
+  caption_entities?: Array<EntityTg>;
+  reply_to_message_id?: number;
+  allow_sending_without_reply?: boolean;
+  protect_content?: boolean;
+  reply_markup?: any;
+}
+
 interface SendMessageResponse {
   message_id: number;
   message_thread_id: number;
@@ -69,5 +81,11 @@ export class TelegramService {
     params: SendMessageParams
   ): Promise<AxiosResponse<SendMessageResponse>> {
     return TelegramService.instance.post("/sendMessage", params);
+  }
+
+  public static sendPhoto(
+    params: SendPhotoParams
+  ): Promise<AxiosResponse<SendMessageResponse>> {
+    return TelegramService.instance.post("/sendPhoto", params);
   }
 }

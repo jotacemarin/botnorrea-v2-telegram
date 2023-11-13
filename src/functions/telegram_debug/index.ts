@@ -4,6 +4,7 @@ import { TelegramService } from "../../lib/services/telegram";
 import { FormattingOptionsTg, UpdateTg } from "../../lib/models";
 
 const getMessageToDebug = (body: UpdateTg): string => {
+  console.log(`telegramDebug: ${JSON.stringify(body, null, 2)}`);
   if (body?.message?.reply_to_message) {
     return JSON.stringify(body?.message?.reply_to_message, null, 2);
   }
@@ -16,7 +17,6 @@ const execute = async (
 ): Promise<{ statusCode: number; body?: string }> => {
   TelegramService.initInstance();
   const bodyString: string = getMessageToDebug(body);
-  console.log(`telegramDebug: ${bodyString}`);
   await TelegramService.sendMessage({
     chat_id: body?.message?.chat?.id,
     reply_to_message_id: body?.message?.message_id,
