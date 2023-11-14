@@ -1,9 +1,10 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 import { OK, BAD_REQUEST, NO_CONTENT } from "http-status";
 import axios from "axios";
-import { Command, UpdateTg } from "../../lib/models";
+import { Command, UpdateTg, User } from "../../lib/models";
 import { getTextCommand } from "../../lib/utils/telegramHelper";
 import { CommandDao } from "../../lib/dao/commandDao";
+import { UserDao } from "../../lib/dao/userDao";
 
 const getCommand = async (key: string): Promise<Command | null> => {
   await CommandDao.initInstance();
@@ -24,10 +25,25 @@ const sendToEndpointCommand = async (
   return { statusCode: NO_CONTENT };
 };
 
+const saveUser = async (body: UpdateTg): Promise<void> => {
+  await UserDao.initInstance();
+  const { from } = body?.message ?? {};
+  const user: User = {
+    id: String(from?.id),
+    username: from?.username,
+    firstname: from?.first_name,
+    lastname: from?.last_name,
+  };
+  await UserDao.save(user);
+  return;
+};
+
 const execute = async (body: UpdateTg): Promise<{ statusCode: number }> => {
   if (body?.message?.from?.is_bot) {
     return { statusCode: OK };
   }
+
+  await saveUser(body);
 
   const key = getTextCommand(body);
   if (key) {
