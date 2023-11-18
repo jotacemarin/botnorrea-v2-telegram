@@ -29,3 +29,5 @@ functions:
   telegramSendMessage: ${file(./src/functions/telegram_send_message/function.yml)}
   telegramSendPhoto: ${file(./src/functions/telegram_send_photo/function.yml)}
   telegramDebug: ${file(./src/functions/telegram_debug/function.yml)}
+  telegramMembersMute: ${file(./src/functions/telegram_members_mute/function.yml)}
+  telegramMembersUnmute: ${file(./src/functions/telegram_members_unmute/function.yml)}

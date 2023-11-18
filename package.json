@@ -8,11 +8,15 @@
     "coverage": "jest --coverage",
     "dev:deploy": "sls deploy --stage dev --verbose",
     "dev:destroy": "sls remove --stage dev --verbose",
+    "prod:deploy": "sls deploy --stage prod --verbose",
+    "prod:destroy": "sls remove --stage prod --verbose",
     "local:telegramSetWebhook": "sls invoke local -f telegramSetWebhook -p mock_events/event_telegram_set_webhook.json --stage dev",
     "local:telegramWebhook": "sls invoke local -f telegramWebhook -p mock_events/event_telegram_webhook.json --stage dev",
     "local:telegramSendMessage": "sls invoke local -f telegramSendMessage -p mock_events/event_telegram_send_message.json --stage dev",
     "local:telegramSendPhoto": "sls invoke local -f telegramSendPhoto -p mock_events/event_telegram_send_photo.json --stage dev",
-    "local:telegramDebug": "sls invoke local -f telegramDebug -p mock_events/event_telegram_debug.json --stage dev"
+    "local:telegramDebug": "sls invoke local -f telegramDebug -p mock_events/event_telegram_debug.json --stage dev",
+    "local:telegramMembersMute": "sls invoke local -f telegramMembersMute -p mock_events/event_telegram_members_mute.json --stage dev",
+    "local:telegramMembersUnmute": "sls invoke local -f telegramMembersUnmute -p mock_events/event_telegram_members_unmute.json --stage dev"
   },
   "repository": {
     "type": "git",
@@ -45,6 +49,7 @@
     "@aws-sdk/lib-dynamodb": "3.388.0",
     "@xenova/transformers": "^2.8.0",
     "axios": "1.4.0",
+    "dayjs": "^1.11.10",
     "http-status": "1.6.2",
     "mongoose": "^8.0.0",
     "onnxruntime-node": "^1.16.2",
