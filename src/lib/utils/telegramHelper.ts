@@ -1,11 +1,12 @@
 import { EntityTypeTg, UpdateTg } from "../models";
+import { MessageTg } from "../models/telegram";
 
 const filterTextCommandEntity = ({ type, offset }) =>
   type === EntityTypeTg.BOT_COMMAND && offset === 0;
 
-const checkIfHasTextCommand = (body: UpdateTg) => {
-  const entities = body?.message?.entities ?? [];
-  const caption_entities = body?.message?.caption_entities ?? [];
+const checkIfHasTextCommand = (message: MessageTg) => {
+  const entities = message?.entities ?? [];
+  const caption_entities = message?.caption_entities ?? [];
   const commands = [...entities, ...caption_entities]?.filter(
     filterTextCommandEntity
   );
@@ -13,10 +14,10 @@ const checkIfHasTextCommand = (body: UpdateTg) => {
 };
 
 const getTextCommandPosition = (
-  body: UpdateTg
+  message: MessageTg
 ): { offset: number; length: number } => {
-  const entities = body?.message?.entities ?? [];
-  const caption_entities = body?.message?.caption_entities ?? [];
+  const entities = message?.entities ?? [];
+  const caption_entities = message?.caption_entities ?? [];
   const commands = [...entities, ...caption_entities]?.filter(
     filterTextCommandEntity
   );
@@ -29,23 +30,27 @@ const getTextCommandPosition = (
 };
 
 const getTextCommandKey = (
-  body: UpdateTg,
+  message: MessageTg,
   position: { offset: number; length: number }
 ) => {
-  const text = body?.message?.text ?? body?.message?.caption;
+  const text = message?.text ?? message?.caption;
   const key = text?.substring(position?.offset, position?.length);
 
   return key?.trim();
 };
 
-export const getTextCommand = (body: UpdateTg): null | string => {
-  const hasTextCommand = checkIfHasTextCommand(body);
+export const getTextCommand = (message: MessageTg): string | null => {
+  const hasTextCommand = checkIfHasTextCommand(message);
   if (!hasTextCommand) {
     return null;
   }
 
-  const position = getTextCommandPosition(body);
-  const key = getTextCommandKey(body, position);
+  const position = getTextCommandPosition(message);
+  const key = getTextCommandKey(message, position);
+  if (!key) {
+    return null;
+  }
+
   if (key === "") {
     return null;
   }

@@ -1,6 +1,7 @@
 export enum ChatTypeTg {
   PRIVATE = "private",
   GROUP = "group",
+  SUPERGROUP = "supergroup",
 }
 
 export enum EntityTypeTg {
@@ -35,14 +36,6 @@ export interface EntityTg {
   type: EntityTypeTg;
 }
 
-export interface ReplyToMessageTg {
-  message_id: number;
-  from: UserTg;
-  chat: ChatTg;
-  date: string;
-  text: string;
-}
-
 export interface PhotoSizeTg {
   file_id: string;
   file_unique_id: string;
@@ -60,11 +53,18 @@ export interface MessageTg {
   caption: string;
   entities?: Array<EntityTg>;
   caption_entities?: Array<EntityTg>;
-  reply_to_message: ReplyToMessageTg;
+  reply_to_message: MessageTg;
   photo: Array<PhotoSizeTg>;
 }
 
 export interface UpdateTg {
   update_id: number;
-  message: MessageTg;
+  message?: MessageTg;
+  callback_query?: {
+    id: string;
+    from: UserTg;
+    message: MessageTg;
+    chat_instance: string;
+    data: string;
+  };
 }

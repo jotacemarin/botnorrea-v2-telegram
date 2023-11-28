@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, AxiosInstance } from "axios";
 import { EntityTg, UserTg, FormattingOptionsTg } from "../models";
+import { MessageTg } from "../models/telegram";
 
 const { TELEGRAM_BOT_TOKEN } = process.env;
 
@@ -43,13 +44,48 @@ export interface SendPhotoParams {
   reply_markup?: any;
 }
 
+export interface EditMessageReplyMarkupParams {
+  chat_id: number | string;
+  message_id: number | string;
+  reply_markup: {
+    inline_keyboard: Array<any>;
+  };
+}
+
 interface SendMessageResponse {
-  message_id: number;
-  message_thread_id: number;
-  from: UserTg;
-  sender_chat: any;
-  date: number;
-  entities: Array<EntityTg>;
+  ok: boolean;
+  result: {
+    message_id: number;
+    message_thread_id: number;
+    from: UserTg;
+    sender_chat: any;
+    date: number;
+    entities: Array<EntityTg>;
+  };
+}
+
+interface GetChatResponse {
+  ok: boolean;
+  result: {
+    id: number | string;
+    title: string;
+    username: string;
+    type: string;
+  };
+}
+
+interface GetChatMemberResponse {
+  ok: boolean;
+  result: {
+    user: UserTg;
+    status: string;
+    is_anonymous: boolean;
+  };
+}
+
+interface EditMessageReplyMarkupResponse {
+  ok: boolean;
+  result: MessageTg;
 }
 
 export class TelegramService {
@@ -87,5 +123,28 @@ export class TelegramService {
     params: SendPhotoParams
   ): Promise<AxiosResponse<SendMessageResponse>> {
     return TelegramService.instance.post("/sendPhoto", params);
+  }
+
+  public static getChat(
+    chatId: number | string
+  ): Promise<AxiosResponse<GetChatResponse>> {
+    return TelegramService.instance.get("/getChat", {
+      params: { chat_id: chatId },
+    });
+  }
+
+  public static getChatMember(
+    chatId: number | string,
+    userId: number | string
+  ): Promise<AxiosResponse<GetChatMemberResponse>> {
+    return TelegramService.instance.get("/getChatMember", {
+      params: { chat_id: chatId, user_id: userId },
+    });
+  }
+
+  public static editMessageReplyMarkup(
+    params: EditMessageReplyMarkupParams
+  ): Promise<AxiosResponse<EditMessageReplyMarkupResponse>> {
+    return TelegramService.instance.post("/editMessageReplyMarkup", params);
   }
 }

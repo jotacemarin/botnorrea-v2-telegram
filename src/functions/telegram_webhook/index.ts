@@ -5,52 +5,93 @@ import { Command, UpdateTg, User } from "../../lib/models";
 import { getTextCommand } from "../../lib/utils/telegramHelper";
 import { CommandDao } from "../../lib/dao/commandDao";
 import { UserDao } from "../../lib/dao/userDao";
+import { MessageTg } from "../../lib/models/telegram";
 
-const getCommand = async (key: string): Promise<Command | null> => {
-  await CommandDao.initInstance();
+const { STAGE } = process.env;
+
+const getCommand = async (
+  message: MessageTg | undefined
+): Promise<Command | null> => {
+  if (!message) {
+    return null;
+  }
+
+  const key = getTextCommand(message);
+  if (!key) {
+    return null;
+  }
+
   return CommandDao.findByKey(key);
 };
 
-const sendToEndpointCommand = async (
-  body: UpdateTg,
-  key: string
-): Promise<{ statusCode: number }> => {
-  const command = await getCommand(key);
-  if (command?.enabled) {
+const request = async (command: Command, body: UpdateTg) => {
+  try {
     console.log(`${command.key}: ${command.url}`);
     await axios.post(command.url, body);
-    return { statusCode: OK };
+  } finally {
+    return;
+  }
+};
+
+const executeCallbackQuery = async (body: UpdateTg): Promise<void> => {
+  const command = await getCommand(
+    body.callback_query?.message?.reply_to_message
+  );
+  if (command?.enabled) {
+    await request(command, body);
   }
 
-  return { statusCode: NO_CONTENT };
+  return;
+};
+
+const executeCommand = async (body: UpdateTg): Promise<void> => {
+  const command = await getCommand(body.message);
+  if (command?.enabled) {
+    await request(command, body);
+  }
+
+  return;
+};
+
+const executeExternal = async (body: UpdateTg): Promise<void> => {
+  await CommandDao.initInstance();
+
+  if (body?.message) {
+    await executeCommand(body);
+  }
+
+  if (body?.callback_query) {
+    await executeCallbackQuery(body);
+  }
+
+  return;
 };
 
 const saveUser = async (body: UpdateTg): Promise<void> => {
-  await UserDao.initInstance();
-  const { from } = body?.message ?? {};
-  const user: User = {
-    id: String(from?.id),
-    username: from?.username,
-    firstname: from?.first_name,
-    lastname: from?.last_name,
-  };
-  await UserDao.save(user);
-  return;
+  try {
+    await UserDao.initInstance();
+    const { from } = body?.message ?? body?.callback_query ?? {};
+
+    const user: User = {
+      id: String(from?.id),
+      username: from?.username ?? String(from?.id),
+      firstname: from?.first_name,
+      lastname: from?.last_name,
+    };
+    await UserDao.save(user);
+  } finally {
+    return;
+  }
 };
 
 const execute = async (body: UpdateTg): Promise<{ statusCode: number }> => {
   if (body?.message?.from?.is_bot) {
-    return { statusCode: OK };
+    return { statusCode: NO_CONTENT };
   }
 
-  await saveUser(body);
+  await Promise.all([saveUser(body), executeExternal(body)]);
 
-  const key = getTextCommand(body);
-  if (key) {
-    return sendToEndpointCommand(body, key);
-  }
-
-  return { statusCode: NO_CONTENT };
+  return { statusCode: OK };
 };
 
 export const telegramWebhook = async (
@@ -65,6 +106,9 @@ export const telegramWebhook = async (
   }
 
   const body = JSON.parse(event?.body);
+  if (STAGE === "dev") {
+    console.log(`webhook message: \n${JSON.stringify(body, null, 2)} `);
+  }
   const response = await execute(body);
 
   return callback(null, response);

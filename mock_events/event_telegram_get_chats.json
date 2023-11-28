@@ -1,0 +1,10 @@
+{
+  "headers": {
+    "Authorization": "xxxxx"
+  },
+  "queryStringParameters": {
+    "id": "botnorrea-v2-dev-admin",
+    "apiKey": "0cc6598b-f0ad-48a9-a7c0-90830967ef30"
+  },
+  "body": "{ \"user\": 1346557085, \"chats\": [-1002068882047] }"
+}

@@ -10,9 +10,12 @@
     "dev:destroy": "sls remove --stage dev --verbose",
     "local:telegramSetWebhook": "sls invoke local -f telegramSetWebhook -p mock_events/event_telegram_set_webhook.json --stage dev",
     "local:telegramWebhook": "sls invoke local -f telegramWebhook -p mock_events/event_telegram_webhook.json --stage dev",
+    "local:telegramWebhookCallback": "sls invoke local -f telegramWebhook -p mock_events/event_telegram_webhook_callback.json --stage dev",
     "local:telegramSendMessage": "sls invoke local -f telegramSendMessage -p mock_events/event_telegram_send_message.json --stage dev",
     "local:telegramSendPhoto": "sls invoke local -f telegramSendPhoto -p mock_events/event_telegram_send_photo.json --stage dev",
-    "local:telegramDebug": "sls invoke local -f telegramDebug -p mock_events/event_telegram_debug.json --stage dev"
+    "local:telegramDebug": "sls invoke local -f telegramDebug -p mock_events/event_telegram_debug.json --stage dev",
+    "local:telegramGetChats": "sls invoke local -f telegramGetChats -p mock_events/event_telegram_get_chats.json --stage dev",
+    "local:telegramCleanReplyMarkup": "sls invoke local -f telegramCleanReplyMarkup -p mock_events/event_telegram_clean_reply_markup.json --stage dev"
   },
   "repository": {
     "type": "git",
