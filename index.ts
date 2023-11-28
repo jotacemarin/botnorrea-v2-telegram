@@ -5,3 +5,5 @@ export { telegramSendPhoto } from "./src/functions/telegram_send_photo";
 export { telegramDebug } from "./src/functions/telegram_debug";
 export { telegramGetChats } from "./src/functions/telegram_get_chats";
 export { telegramCleanReplyMarkup } from "./src/functions/telegram_clean_reply_markup";
+export { telegramMembersMute } from "./src/functions/telegram_members_mute";
+export { telegramMembersUnmute } from "./src/functions/telegram_members_unmute";

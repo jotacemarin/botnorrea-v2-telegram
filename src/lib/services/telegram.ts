@@ -52,6 +52,30 @@ export interface EditMessageReplyMarkupParams {
   };
 }
 
+interface ChatPermissions {
+  can_send_messages: boolean;
+  can_send_audios: boolean;
+  can_send_documents: boolean;
+  can_send_photos: boolean;
+  can_send_videos: boolean;
+  can_send_video_notes: boolean;
+  can_send_voice_notes: boolean;
+  can_send_polls: boolean;
+  can_send_other_messages: boolean;
+  can_add_web_page_previews: boolean;
+  can_change_info: boolean;
+  can_invite_users: boolean;
+  can_pin_messages: boolean;
+  can_manage_topics: boolean;
+}
+
+export interface RestrictChatMemberParams {
+  chat_id: number | string;
+  user_id: number | string;
+  permissions: ChatPermissions;
+  until_date?: number;
+}
+
 interface SendMessageResponse {
   ok: boolean;
   result: {
@@ -146,5 +170,11 @@ export class TelegramService {
     params: EditMessageReplyMarkupParams
   ): Promise<AxiosResponse<EditMessageReplyMarkupResponse>> {
     return TelegramService.instance.post("/editMessageReplyMarkup", params);
+  }
+
+  public static async restrictChatMember(
+    params: RestrictChatMemberParams
+  ): Promise<AxiosResponse<{ ok: boolean; result: boolean }>> {
+    return TelegramService.instance.post("/restrictChatMember", params);
   }
 }

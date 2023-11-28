@@ -1,0 +1,11 @@
+name: ${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}-telegram-members-unmute
+handler: index.telegramMembersUnmute
+memorySize: 128
+timeout: 30
+reservedConcurrency: 20
+events: 
+  - http: 
+      path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/members/unmute
+      method: POST
+      cors: true
+      # authorizer: authorizer
