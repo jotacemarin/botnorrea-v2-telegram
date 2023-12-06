@@ -8,4 +8,3 @@ events:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/members/mute
       method: POST
       cors: true
-      # authorizer: authorizer

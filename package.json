@@ -10,6 +10,7 @@
     "dev:destroy": "sls remove --stage dev --verbose",
     "prod:deploy": "sls deploy --stage prod --verbose",
     "prod:destroy": "sls remove --stage prod --verbose",
+    "local:telegramAuthorizer": "sls invoke local -f telegramAuthorizer -p mock_events/event_telegram_authorizer.json --stage dev",
     "local:telegramSetWebhook": "sls invoke local -f telegramSetWebhook -p mock_events/event_telegram_set_webhook.json --stage dev",
     "local:telegramWebhook": "sls invoke local -f telegramWebhook -p mock_events/event_telegram_webhook.json --stage dev",
     "local:telegramWebhookCallback": "sls invoke local -f telegramWebhook -p mock_events/event_telegram_webhook_callback.json --stage dev",

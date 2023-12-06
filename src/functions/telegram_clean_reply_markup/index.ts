@@ -1,32 +1,6 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
-import { OK, BAD_REQUEST, INTERNAL_SERVER_ERROR } from "http-status";
+import { OK, BAD_REQUEST } from "http-status";
 import { TelegramService } from "../../lib/services/telegram";
-import { UserTg } from "../../lib/models";
-
-const getChat = async (
-  chatId: number | string,
-  userId: number | string
-): Promise<{
-  group: { id: number | string; title: string };
-  user: UserTg;
-  status: string;
-} | null> => {
-  try {
-    const {
-      data: {
-        result: { id, title },
-      },
-    } = await TelegramService.getChat(chatId);
-    const {
-      data: {
-        result: { user, status },
-      },
-    } = await TelegramService.getChatMember(chatId, userId);
-    return { group: { id, title }, user, status };
-  } catch {
-    return null;
-  }
-};
 
 const execute = async (body: {
   chatId: number | string;

@@ -16,9 +16,10 @@ const execute = async (
   body: UpdateTg
 ): Promise<{ statusCode: number; body?: string }> => {
   TelegramService.initInstance();
+
   const bodyString: string = getMessageToDebug(body);
   await TelegramService.sendMessage({
-    chat_id: body?.message?.chat?.id,
+    chat_id: body?.message!.chat?.id,
     reply_to_message_id: body?.message?.message_id,
     parse_mode: FormattingOptionsTg.HTML,
     text: `<code>${bodyString}</code>`,

@@ -32,6 +32,20 @@ export interface SendMessageParams {
   reply_markup?: any;
 }
 
+export interface EditMessageParams {
+  chat_id: number | string;
+  message_id: number | string;
+  text: string;
+  message_thread_id?: number;
+  parse_mode?: FormattingOptionsTg;
+  entities?: Array<EntityTg>;
+  protect_content?: boolean;
+  reply_to_message_id?: number;
+  reply_markup?: {
+    inline_keyboard: Array<any>;
+  };
+}
+
 export interface SendPhotoParams {
   chat_id: number | string;
   photo: string;
@@ -141,6 +155,12 @@ export class TelegramService {
     params: SendMessageParams
   ): Promise<AxiosResponse<SendMessageResponse>> {
     return TelegramService.instance.post("/sendMessage", params);
+  }
+
+  public static editMessage(
+    params: EditMessageParams
+  ): Promise<AxiosResponse<SendMessageResponse>> {
+    return TelegramService.instance.post("/editMessageText", params);
   }
 
   public static sendPhoto(

@@ -8,4 +8,4 @@ events:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/send-photo
       method: POST
       cors: true
-      # authorizer: authorizer
+      # authorizer: telegramAuthorizer

@@ -7,9 +7,4 @@ events:
   - http: 
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/get-chats
       method: POST
-      # request:
-      #   parameters:
-      #     querystrings:
-      #       id: true
-      #       apiKey: true
       cors: true
