@@ -10,7 +10,7 @@ const sendMessage = async (body: UpdateTg, text: string): Promise<void> => {
   TelegramService.initInstance();
 
   await TelegramService.sendMessage({
-    chat_id: body?.message?.chat?.id,
+    chat_id: body?.message!.chat?.id,
     reply_to_message_id: body?.message?.message_id,
     parse_mode: FormattingOptionsTg.HTML,
     text,
@@ -30,8 +30,8 @@ const getUsers = async (usernames: Array<string>): Promise<Array<User>> => {
 };
 
 const getDataFromBody = (body: UpdateTg): Array<string> => {
-  const key = getTextCommand(body) ?? "";
-  const usernames = body?.message?.text?.replace(key, "")?.trim()?.split(" ");
+  const key = getTextCommand(body.message) ?? "";
+  const usernames = body?.message!.text?.replace(key, "")?.trim()?.split(" ");
 
   return usernames;
 };
@@ -49,7 +49,7 @@ const restrictPermissions = async (
   TelegramService.initInstance();
   try {
     const { data } = await TelegramService.restrictChatMember({
-      chat_id: body?.message?.chat?.id,
+      chat_id: body?.message!.chat?.id,
       user_id: user?.id,
       permissions: {
         can_send_messages: false,

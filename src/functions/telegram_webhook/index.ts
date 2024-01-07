@@ -5,7 +5,8 @@ import { Command, UpdateTg, User } from "../../lib/models";
 import { getTextCommand } from "../../lib/utils/telegramHelper";
 import { CommandDao } from "../../lib/dao/commandDao";
 import { UserDao } from "../../lib/dao/userDao";
-import { MessageTg } from "../../lib/models/telegram";
+import { FormattingOptionsTg, MessageTg } from "../../lib/models/telegram";
+import { TelegramService } from "../../lib/services/telegram";
 
 const { STAGE } = process.env;
 
@@ -28,6 +29,13 @@ const request = async (command: Command, body: UpdateTg) => {
   try {
     console.log(`${command.key}: ${command.url}`);
     await axios.post(command.url, body);
+  } catch (error) {
+    await TelegramService.sendMessage({
+      chat_id: body.message!.chat.id,
+      reply_to_message_id: body?.message?.message_id,
+      parse_mode: FormattingOptionsTg.HTML,
+      text: `🫤 <code>${error?.message}</code>`,
+    });
   } finally {
     return;
   }

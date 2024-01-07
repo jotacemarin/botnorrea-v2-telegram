@@ -1,4 +1,4 @@
-# Botnorrea v2 telegram functions
+# Botnorrea v2 telegram dependencies
 
 - nodejs `18.19.0`
 - serverles framework `3`
@@ -11,3 +11,43 @@
 - mongoose `8.0.0`
 - onnxruntime-node `1.16.2`
 - transformers.ts `1.0.2"`
+
+# Botnorrea v2 telegram
+
+```json
+[
+  {
+    "key": "/debug",
+    "createdAt": {
+      "$date": "2023-11-12T20:00:17.543Z"
+    },
+    "enabled": true,
+    "updatedAt": {
+      "$date": "2023-11-12T20:00:17.543Z"
+    },
+    "url": ""
+  },
+  {
+    "key": "/mute",
+    "createdAt": {
+      "$date": "2023-11-12T20:00:17.543Z"
+    },
+    "enabled": true,
+    "updatedAt": {
+      "$date": "2023-11-12T20:00:17.543Z"
+    },
+    "url": ""
+  },
+  {
+    "key": "/unmute",
+    "createdAt": {
+      "$date": "2023-11-12T20:00:17.543Z"
+    },
+    "enabled": true,
+    "updatedAt": {
+      "$date": "2023-11-12T20:00:17.543Z"
+    },
+    "url": ""
+  }
+]
+```

@@ -1,6 +1,8 @@
 import { EntityTypeTg, UpdateTg } from "../models";
 import { MessageTg } from "../models/telegram";
 
+const { BOT_USERNAME } = process.env;
+
 const filterTextCommandEntity = ({ type, offset }) =>
   type === EntityTypeTg.BOT_COMMAND && offset === 0;
 
@@ -34,12 +36,19 @@ const getTextCommandKey = (
   position: { offset: number; length: number }
 ) => {
   const text = message?.text ?? message?.caption;
-  const key = text?.substring(position?.offset, position?.length);
+  const rawKey = text?.substring(position?.offset, position?.length);
+  const key = rawKey.replace(`${BOT_USERNAME}`, "");
 
   return key?.trim();
 };
 
-export const getTextCommand = (message: MessageTg): string | null => {
+export const getTextCommand = (
+  message: MessageTg | null | undefined
+): string | null => {
+  if (!message) {
+    return null;
+  }
+
   const hasTextCommand = checkIfHasTextCommand(message);
   if (!hasTextCommand) {
     return null;
