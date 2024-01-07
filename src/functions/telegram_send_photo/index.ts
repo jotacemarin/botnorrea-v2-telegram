@@ -18,7 +18,7 @@ const execute = async (
 
     return { statusCode: OK, body: JSON.stringify(sendMessageResponse?.data) };
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
   return { statusCode: OK };
 };

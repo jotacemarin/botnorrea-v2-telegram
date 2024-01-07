@@ -17,7 +17,7 @@ provider:
     STAGE: ${self:provider.stage}
     REGION: ${self:provider.region}
     BOT_NAME: ${self:custom.secrets.provider.environment.BOT_NAME}-${self:provider.stage}
-    BOT_USERNAME: ${self:custom.secrets.provider.environment.BOT_USERNAME}-${self:provider.stage}
+    BOT_USERNAME: ${self:custom.secrets.provider.environment.BOT_USERNAME}
     TELEGRAM_BOT_TOKEN: ${self:custom.secrets.provider.environment.TELEGRAM_BOT_TOKEN}
     AUTH_URL: ${self:custom.secrets.provider.environment.AUTH_URL}
     MONGO_USER: ${self:custom.secrets.provider.environment.MONGO_USER}

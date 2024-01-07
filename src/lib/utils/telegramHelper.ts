@@ -1,4 +1,4 @@
-import { EntityTypeTg, UpdateTg } from "../models";
+import { EntityTypeTg } from "../models";
 import { MessageTg } from "../models/telegram";
 
 const { BOT_USERNAME } = process.env;
@@ -37,7 +37,7 @@ const getTextCommandKey = (
 ) => {
   const text = message?.text ?? message?.caption;
   const rawKey = text?.substring(position?.offset, position?.length);
-  const key = rawKey.replace(`${BOT_USERNAME}`, "");
+  const key = rawKey.replace(`@${BOT_USERNAME}`, "");
 
   return key?.trim();
 };
