@@ -36,6 +36,15 @@ export interface EntityTg {
   type: EntityTypeTg;
 }
 
+export interface ReplyMarkupTg {
+  inline_keyboard: Array<
+    Array<{
+      text: string;
+      callback_data: string;
+    }>
+  >;
+}
+
 export interface PhotoSizeTg {
   file_id: string;
   file_unique_id: string;
@@ -51,10 +60,11 @@ export interface MessageTg {
   date: number;
   text: string;
   caption: string;
-  entities?: Array<EntityTg>;
-  caption_entities?: Array<EntityTg>;
   reply_to_message: MessageTg;
   photo: Array<PhotoSizeTg>;
+  entities?: Array<EntityTg>;
+  caption_entities?: Array<EntityTg>;
+  reply_markup?: ReplyMarkupTg;
 }
 
 export interface UpdateTg {

@@ -2,7 +2,7 @@ import {
   APIGatewayAuthorizerResult,
   APIGatewayTokenAuthorizerEvent,
 } from "aws-lambda";
-import { AuthService } from "../../lib/services/auth";
+import { AuthService } from "../../lib/services";
 
 enum Effect {
   DENY = "Deny",

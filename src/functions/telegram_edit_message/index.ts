@@ -1,9 +1,6 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 import { OK, BAD_REQUEST } from "http-status";
-import {
-  EditMessageParams,
-  TelegramService,
-} from "../../lib/services/telegram";
+import { EditMessageParams, TelegramService } from "../../lib/services";
 
 const execute = async (
   body: EditMessageParams
@@ -47,7 +44,7 @@ export const telegramEditMessage = async (
   }
 
   const body = JSON.parse(event?.body);
-  
+
   const response = await execute(body);
   return callback(null, response);
 };

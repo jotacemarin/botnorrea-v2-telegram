@@ -1,14 +1,11 @@
-import { EntityTypeTg } from "../models";
-import { MessageTg } from "../models/telegram";
-
-const { BOT_USERNAME } = process.env;
+import { EntityTypeTg, UpdateTg } from "../models";
 
 const filterTextCommandEntity = ({ type, offset }) =>
   type === EntityTypeTg.BOT_COMMAND && offset === 0;
 
-const checkIfHasTextCommand = (message: MessageTg) => {
-  const entities = message?.entities ?? [];
-  const caption_entities = message?.caption_entities ?? [];
+const checkIfHasTextCommand = (body: UpdateTg) => {
+  const entities = body?.message?.entities ?? [];
+  const caption_entities = body?.message?.caption_entities ?? [];
   const commands = [...entities, ...caption_entities]?.filter(
     filterTextCommandEntity
   );
@@ -16,10 +13,10 @@ const checkIfHasTextCommand = (message: MessageTg) => {
 };
 
 const getTextCommandPosition = (
-  message: MessageTg
+  body: UpdateTg
 ): { offset: number; length: number } => {
-  const entities = message?.entities ?? [];
-  const caption_entities = message?.caption_entities ?? [];
+  const entities = body?.message?.entities ?? [];
+  const caption_entities = body?.message?.caption_entities ?? [];
   const commands = [...entities, ...caption_entities]?.filter(
     filterTextCommandEntity
   );
@@ -32,30 +29,23 @@ const getTextCommandPosition = (
 };
 
 const getTextCommandKey = (
-  message: MessageTg,
+  body: UpdateTg,
   position: { offset: number; length: number }
 ) => {
-  const text = message?.text ?? message?.caption;
-  const rawKey = text?.substring(position?.offset, position?.length);
-  const key = rawKey.replace(`@${BOT_USERNAME}`, "");
+  const text = body?.message?.text ?? body?.message?.caption;
+  const key = text?.substring(position?.offset, position?.length);
 
   return key?.trim();
 };
 
-export const getTextCommand = (
-  message: MessageTg | null | undefined
-): string | null => {
-  if (!message) {
-    return null;
-  }
-
-  const hasTextCommand = checkIfHasTextCommand(message);
+export const getTextCommand = (body: UpdateTg): null | string => {
+  const hasTextCommand = checkIfHasTextCommand(body);
   if (!hasTextCommand) {
     return null;
   }
 
-  const position = getTextCommandPosition(message);
-  const key = getTextCommandKey(message, position);
+  const position = getTextCommandPosition(body);
+  const key = getTextCommandKey(body, position);
   if (!key) {
     return null;
   }

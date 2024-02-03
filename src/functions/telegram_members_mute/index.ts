@@ -1,10 +1,10 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 import { OK, BAD_REQUEST, NOT_FOUND } from "http-status";
 import dayjs from "dayjs";
-import { TelegramService } from "../../lib/services/telegram";
-import { FormattingOptionsTg, UpdateTg, User } from "../../lib/models";
 import { getTextCommand } from "../../lib/utils/telegramHelper";
-import { UserDao } from "../../lib/dao/userDao";
+import { TelegramService } from "../../lib/services";
+import { FormattingOptionsTg, UpdateTg, User } from "../../lib/models";
+import { UserDao } from "../../lib/dao";
 
 const sendMessage = async (body: UpdateTg, text: string): Promise<void> => {
   TelegramService.initInstance();
@@ -30,7 +30,7 @@ const getUsers = async (usernames: Array<string>): Promise<Array<User>> => {
 };
 
 const getDataFromBody = (body: UpdateTg): Array<string> => {
-  const key = getTextCommand(body.message) ?? "";
+  const key = getTextCommand(body) ?? "";
   const usernames = body?.message!.text?.replace(key, "")?.trim()?.split(" ");
 
   return usernames;

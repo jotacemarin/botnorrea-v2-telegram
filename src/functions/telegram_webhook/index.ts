@@ -1,23 +1,19 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 import { OK, BAD_REQUEST, NO_CONTENT } from "http-status";
 import axios from "axios";
-import { Command, UpdateTg, User } from "../../lib/models";
 import { getTextCommand } from "../../lib/utils/telegramHelper";
-import { CommandDao } from "../../lib/dao/commandDao";
-import { UserDao } from "../../lib/dao/userDao";
-import { FormattingOptionsTg, MessageTg } from "../../lib/models/telegram";
-import { TelegramService } from "../../lib/services/telegram";
+import { Command, UpdateTg, User, FormattingOptionsTg } from "../../lib/models";
+import { CommandDao, UserDao } from "../../lib/dao";
+import { TelegramService } from "../../lib/services";
 
 const { STAGE } = process.env;
 
-const getCommand = async (
-  message: MessageTg | undefined
-): Promise<Command | null> => {
-  if (!message) {
+const getCommand = async (body: UpdateTg): Promise<Command | null> => {
+  if (!body) {
     return null;
   }
 
-  const key = getTextCommand(message);
+  const key = getTextCommand(body);
   if (!key) {
     return null;
   }
@@ -42,9 +38,10 @@ const request = async (command: Command, body: UpdateTg) => {
 };
 
 const executeCallbackQuery = async (body: UpdateTg): Promise<void> => {
-  const command = await getCommand(
-    body.callback_query?.message?.reply_to_message
-  );
+  const command = await getCommand({
+    update_id: 0,
+    message: body.callback_query?.message?.reply_to_message,
+  });
   if (command?.enabled) {
     await request(command, body);
   }
@@ -53,7 +50,7 @@ const executeCallbackQuery = async (body: UpdateTg): Promise<void> => {
 };
 
 const executeCommand = async (body: UpdateTg): Promise<void> => {
-  const command = await getCommand(body.message);
+  const command = await getCommand(body);
   if (command?.enabled) {
     await request(command, body);
   }

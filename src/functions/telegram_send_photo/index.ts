@@ -1,6 +1,6 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 import { OK, BAD_REQUEST } from "http-status";
-import { SendPhotoParams, TelegramService } from "../../lib/services/telegram";
+import { SendPhotoParams, TelegramService } from "../../lib/services";
 
 const execute = async (
   body: SendPhotoParams

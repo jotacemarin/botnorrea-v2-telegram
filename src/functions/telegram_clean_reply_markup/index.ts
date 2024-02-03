@@ -1,6 +1,6 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
 import { OK, BAD_REQUEST } from "http-status";
-import { TelegramService } from "../../lib/services/telegram";
+import { TelegramService } from "../../lib/services";
 
 const execute = async (body: {
   chatId: number | string;
