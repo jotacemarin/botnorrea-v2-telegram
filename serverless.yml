@@ -32,6 +32,7 @@ functions:
   telegramSendMessage: ${file(./src/functions/telegram_send_message/function.yml)}
   telegramEditMessage: ${file(./src/functions/telegram_edit_message/function.yml)}
   telegramSendPhoto: ${file(./src/functions/telegram_send_photo/function.yml)}
+  telegramSendVideo: ${file(./src/functions/telegram_send_video/function.yml)}
   telegramDebug: ${file(./src/functions/telegram_debug/function.yml)}
   telegramGetChats: ${file(./src/functions/telegram_get_chats/function.yml)}
   telegramCleanReplyMarkup: ${file(./src/functions/telegram_clean_reply_markup/function.yml)}

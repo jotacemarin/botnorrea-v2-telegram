@@ -5,10 +5,11 @@
   "provider": {
     "name": "aws",
     "runtime": "nodejs18.x",
-    "stage": "",
+    "stage": "dev",
     "region": "",
     "environment": {
       "BOT_NAME": "botnorrea-v2",
+      "BOT_USERNAME": "",
       "TELEGRAM_BOT_TOKEN": "",
       "AUTH_URL": "",
       "MONGO_USER": "",

@@ -29,7 +29,10 @@ export interface SendMessageParams {
   entities?: Array<EntityTg>;
   protect_content?: boolean;
   reply_to_message_id?: number;
-  reply_markup?: any;
+  reply_markup?: {
+    inline_keyboard: Array<any>;
+  };
+  has_spoiler?: boolean;
 }
 
 export interface EditMessageParams {
@@ -44,6 +47,7 @@ export interface EditMessageParams {
   reply_markup?: {
     inline_keyboard: Array<any>;
   };
+  has_spoiler?: boolean;
 }
 
 export interface SendPhotoParams {
@@ -55,7 +59,25 @@ export interface SendPhotoParams {
   reply_to_message_id?: number;
   allow_sending_without_reply?: boolean;
   protect_content?: boolean;
-  reply_markup?: any;
+  reply_markup?: {
+    inline_keyboard: Array<any>;
+  };
+  has_spoiler?: boolean;
+}
+
+export interface SendVideoParams {
+  chat_id: number | string;
+  video: string;
+  caption?: string;
+  parse_mode?: FormattingOptionsTg;
+  caption_entities?: Array<EntityTg>;
+  reply_to_message_id?: number;
+  allow_sending_without_reply?: boolean;
+  protect_content?: boolean;
+  reply_markup?: {
+    inline_keyboard: Array<any>;
+  };
+  has_spoiler?: boolean;
 }
 
 export interface EditMessageReplyMarkupParams {
@@ -167,6 +189,12 @@ export class TelegramService {
     params: SendPhotoParams
   ): Promise<AxiosResponse<SendMessageResponse>> {
     return TelegramService.instance.post("/sendPhoto", params);
+  }
+
+  public static sendVideo(
+    params: SendVideoParams
+  ): Promise<AxiosResponse<SendMessageResponse>> {
+    return TelegramService.instance.post("/sendVideo", params);
   }
 
   public static getChat(

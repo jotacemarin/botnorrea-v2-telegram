@@ -10,4 +10,5 @@ export {
   PhotoSizeTg,
   UpdateTg,
   UserTg,
+  VideoTg,
 } from "./telegram";

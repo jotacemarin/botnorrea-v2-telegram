@@ -4,6 +4,7 @@ export { telegramWebhook } from "./src/functions/telegram_webhook";
 export { telegramSendMessage } from "./src/functions/telegram_send_message";
 export { telegramEditMessage } from "./src/functions/telegram_edit_message";
 export { telegramSendPhoto } from "./src/functions/telegram_send_photo";
+export { telegramSendVideo } from "./src/functions/telegram_send_video";
 export { telegramDebug } from "./src/functions/telegram_debug";
 export { telegramGetChats } from "./src/functions/telegram_get_chats";
 export { telegramCleanReplyMarkup } from "./src/functions/telegram_clean_reply_markup";

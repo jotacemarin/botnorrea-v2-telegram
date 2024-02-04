@@ -6,5 +6,6 @@ export {
   RestrictChatMemberParams,
   SendMessageParams,
   SendPhotoParams,
+  SendVideoParams,
   TelegramService,
 } from "./telegram";
