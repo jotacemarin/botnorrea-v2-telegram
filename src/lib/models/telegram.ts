@@ -16,9 +16,9 @@ export enum FormattingOptionsTg {
 
 export interface ChatTg {
   id: number;
-  title: string;
-  type: ChatTypeTg | string;
-  all_members_are_administrators: boolean;
+  title?: string;
+  type?: ChatTypeTg | string;
+  all_members_are_administrators?: boolean;
 }
 
 export interface UserTg {
@@ -74,11 +74,11 @@ export interface MessageTg {
   sender_chat?: ChatTg;
   chat: ChatTg;
   date: number;
-  text: string;
-  caption: string;
-  reply_to_message: MessageTg;
-  photo: Array<PhotoSizeTg>;
-  video: VideoTg;
+  text?: string;
+  caption?: string;
+  reply_to_message?: MessageTg;
+  photo?: Array<PhotoSizeTg>;
+  video?: VideoTg;
   entities?: Array<EntityTg>;
   caption_entities?: Array<EntityTg>;
   reply_markup?: ReplyMarkupTg;

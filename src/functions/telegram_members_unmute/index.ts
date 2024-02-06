@@ -30,7 +30,7 @@ const getUsers = async (usernames: Array<string>): Promise<Array<User>> => {
 
 const getDataFromBody = (body: UpdateTg): Array<string> => {
   const key = getTextCommand(body) ?? "";
-  const usernames = body?.message!.text?.replace(key, "")?.trim()?.split(" ");
+  const usernames = body?.message!.text!.replace(key, "")?.trim()?.split(" ");
 
   return usernames;
 };

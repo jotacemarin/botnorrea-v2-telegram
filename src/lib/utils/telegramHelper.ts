@@ -31,9 +31,9 @@ const getTextCommandPosition = (
 const getTextCommandKey = (
   body: UpdateTg,
   position: { offset: number; length: number }
-) => {
+): string => {
   const text = body?.message?.text ?? body?.message?.caption;
-  const key = text?.substring(position?.offset, position?.length);
+  const key = text!.substring(position?.offset, position?.length);
 
   return key?.trim();
 };
