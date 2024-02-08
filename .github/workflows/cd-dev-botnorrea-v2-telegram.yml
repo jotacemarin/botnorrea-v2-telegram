@@ -1,7 +1,7 @@
-name: ci-dev-botnorrea-v2-telegram
+name: cd-dev-botnorrea-v2-telegram
 
 on:
-  pull_request:
+  push:
     branches: [develop]
 
 jobs:
@@ -13,10 +13,10 @@ jobs:
         node-version: ["18.x"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Using Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -31,3 +31,14 @@ jobs:
         with:
           path: "coverage/lcov.info"
           min_coverage: 30
+
+      - name: Create JSON
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "dev.json"
+          json: ${{ secrets.CONFIG_FILE_DEV }}
+          dir: "config/"
+
+      - name: Deploy
+        run: npm run dev:deploy
