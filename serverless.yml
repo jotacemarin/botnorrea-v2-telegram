@@ -38,3 +38,4 @@ functions:
   telegramCleanReplyMarkup: ${file(./src/functions/telegram_clean_reply_markup/function.yml)}
   telegramMembersMute: ${file(./src/functions/telegram_members_mute/function.yml)}
   telegramMembersUnmute: ${file(./src/functions/telegram_members_unmute/function.yml)}
+  telegramPublicWebhook: ${file(./src/functions/telegram_public_webhook/function.yml)}

@@ -1,0 +1,7 @@
+{
+  "queryStringParameters": {
+    "id": "65617e8d34983d71228ed2a0",
+    "username": "jotacemarin"
+  },
+  "body": "{\"chat_id\": 1346557085, \"photo\": \"AgACAgEAAxkBAAPXZVFwvV4DVSWnYLaKIzYtfCKhgVwAAqqtMRs52YhG_BaIE7yoYygBAAMCAAN5AAMzBA\", \"text\": \"test caption\", \"media_is_spoiler\": true, \"text_is_spoiler\": true}"
+}

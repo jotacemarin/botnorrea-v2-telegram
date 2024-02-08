@@ -1,0 +1,10 @@
+name: ${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}-telegram-public-webhook
+handler: index.telegramPublicWebhook
+memorySize: 128
+timeout: 30
+reservedConcurrency: 10
+events:
+  - http:
+      path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/public-webhook
+      method: POST
+      cors: true

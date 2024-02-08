@@ -21,7 +21,8 @@
     "local:telegramGetChats": "sls invoke local -f telegramGetChats -p mock_events/event_telegram_get_chats.json --stage dev",
     "local:telegramCleanReplyMarkup": "sls invoke local -f telegramCleanReplyMarkup -p mock_events/event_telegram_clean_reply_markup.json --stage dev",
     "local:telegramMembersMute": "sls invoke local -f telegramMembersMute -p mock_events/event_telegram_members_mute.json --stage dev",
-    "local:telegramMembersUnmute": "sls invoke local -f telegramMembersUnmute -p mock_events/event_telegram_members_unmute.json --stage dev"
+    "local:telegramMembersUnmute": "sls invoke local -f telegramMembersUnmute -p mock_events/event_telegram_members_unmute.json --stage dev",
+    "local:telegramPublicWebhook": "sls invoke local -f telegramPublicWebhook -p mock_events/event_telegram_public_webhook.json --stage dev"
   },
   "repository": {
     "type": "git",
