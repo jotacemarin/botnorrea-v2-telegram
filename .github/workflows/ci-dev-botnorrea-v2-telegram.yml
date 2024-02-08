@@ -2,9 +2,7 @@ name: ci-botnorrea-v2-telegram
 
 on:
   pull_request:
-    branches: [master]
-  push:
-    branches: [master]
+    branches: [develop]
 
 jobs:
   unit-test:
