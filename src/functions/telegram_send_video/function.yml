@@ -3,9 +3,8 @@ handler: index.telegramSendVideo
 memorySize: 128
 timeout: 30
 reservedConcurrency: 10
-events: 
-  - http: 
+events:
+  - http:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/send-video
       method: POST
       cors: true
-      # authorizer: telegramAuthorizer

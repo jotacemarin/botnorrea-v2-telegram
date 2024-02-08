@@ -3,8 +3,8 @@ handler: index.telegramSetWebhook
 memorySize: 128
 timeout: 30
 reservedConcurrency: 1
-events: 
-  - http: 
+events:
+  - http:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/set-webhook
       method: POST
       cors: true

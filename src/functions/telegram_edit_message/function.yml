@@ -8,4 +8,3 @@ events:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/edit-message
       method: POST
       cors: true
-      # authorizer: telegramAuthorizer

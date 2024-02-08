@@ -3,8 +3,8 @@ handler: index.telegramGetChats
 memorySize: 128
 timeout: 30
 reservedConcurrency: 5
-events: 
-  - http: 
+events:
+  - http:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/get-chats
       method: POST
       cors: true

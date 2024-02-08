@@ -1,6 +1,6 @@
 import axios, { AxiosResponse, AxiosInstance } from "axios";
 
-const { AUTH_URL } = process.env;
+const { AUTH_URL, BOT_NAME } = process.env;
 
 interface Auth0GetTokenResponse {
   access_token: string;
@@ -28,7 +28,7 @@ export class AuthService {
     return AuthService.instance.post("/oauth/token", {
       client_id: clientId,
       client_secret: clientSecret,
-      audience: "botnorrea-v2",
+      audience: `${BOT_NAME}`,
       grant_type: "client_credentials",
     });
   }

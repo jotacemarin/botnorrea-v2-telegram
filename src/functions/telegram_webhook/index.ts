@@ -105,6 +105,7 @@ export const telegramWebhook = async (
   callback: Callback
 ): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false;
+  const startDate = new Date();
 
   if (!event?.body) {
     return callback(null, { statusCode: BAD_REQUEST });
@@ -115,6 +116,11 @@ export const telegramWebhook = async (
     console.log(`webhook message: \n${JSON.stringify(body, null, 2)} `);
   }
   const response = await execute(body);
+
+  const endDate = new Date();
+  console.log(
+    `Telegram Webhook execution: ${endDate.getTime() - startDate.getTime()}ms`
+  );
 
   return callback(null, response);
 };

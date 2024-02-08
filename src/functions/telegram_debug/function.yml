@@ -3,9 +3,8 @@ handler: index.telegramDebug
 memorySize: 128
 timeout: 30
 reservedConcurrency: 5
-events: 
-  - http: 
+events:
+  - http:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/debug
       method: POST
       cors: true
-      # authorizer: authorizer
