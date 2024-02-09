@@ -1,0 +1,53 @@
+name: cd-dev-botnorrea-v2-telegram
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ["18.x"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Using Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install serverless framework
+        run: npm install -g serverless
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Run tests
+        run: npm run coverage
+
+      - name: Check coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        with:
+          path: "coverage/lcov.info"
+          min_coverage: 30
+
+      - name: Create JSON
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "dev.json"
+          json: ${{ secrets.CONFIG_FILE_DEV }}
+          dir: "config/"
+
+      - name: Setup credentials
+        run: serverless config credentials --provider aws --key ${{ secrets.KEY_ID }} --secret ${{ secrets.SECRET_ACCESS_KEY }} --profile ${{ secrets.PROFILE }}
+
+      - name: Deploy
+        run: npm run dev:deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
