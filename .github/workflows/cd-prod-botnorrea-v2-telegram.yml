@@ -26,10 +26,10 @@ jobs:
       - name: Create new git tag
         if: ${{ steps.obtener_autor_commit.outputs.autor_commit != 'botnorrea-v2' }}
         run: |
-          git config --global user.email "${{ secrets.BOTNORREA_V2_EMAIL }}"
-          git config --global user.name "${{ secrets.BOTNORREA_V2_NAME }}"
-          git tag -a "v$(npm run version)" -m "Deploy by ${{ secrets.BOTNORREA_V2_NAME }}"
-          git push origin master "v$(npm run version)"
+          npm version patch
+          git config user.email "${{ secrets.BOTNORREA_V2_EMAIL }}"
+          git config user.name "${{ secrets.BOTNORREA_V2_NAME }}"
+          git push
 
       # Deploy to production
       - name: Using Node.js ${{ matrix.node-version }}
