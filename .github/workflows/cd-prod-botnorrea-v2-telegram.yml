@@ -37,7 +37,7 @@ jobs:
         if: ${{ steps.obtener_autor_commit.outputs.autor_commit != 'botnorrea-v2' }}
         run: |
           git push origin master
-          git push origin ${{ steps.create_new_tag.outputs.create_new_tag }}
+          git push origin ${{ steps.create_new_tag.outputs.new_tag }}
 
       # Deploy to production
       - name: Using Node.js ${{ matrix.node-version }}
