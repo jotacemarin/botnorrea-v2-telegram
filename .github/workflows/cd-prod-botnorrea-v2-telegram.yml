@@ -1,4 +1,4 @@
-name: cd-dev-botnorrea-v2-telegram
+name: cd-prod-botnorrea-v2-telegram
 
 on:
   push:
