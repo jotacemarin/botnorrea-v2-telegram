@@ -23,7 +23,7 @@ jobs:
 
       # Create new git tag
       - name: Create new git tag
-        if: ${{ author != '${{ secrets.BOTNORREA_V2_NAME }}' }}
+        if: ${{ author != 'botnorrea-v2' }}
         run: |
           git config --global user.email "${{ secrets.BOTNORREA_V2_EMAIL }}"
           git config --global user.name "${{ secrets.BOTNORREA_V2_NAME }}"
@@ -32,19 +32,19 @@ jobs:
 
       # Deploy to production
       - name: Using Node.js ${{ matrix.node-version }}
-        if: ${{ author == '${{ secrets.BOTNORREA_V2_NAME }}' }}
+        if: ${{ author == 'botnorrea-v2' }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        if: ${{ author == '${{ secrets.BOTNORREA_V2_NAME }}' }}
+        if: ${{ author == 'botnorrea-v2' }}
         run: |
           npm install -g serverless
           npm i
 
       - name: Create JSON
-        if: ${{ author == '${{ secrets.BOTNORREA_V2_NAME }}' }}
+        if: ${{ author == 'botnorrea-v2' }}
         id: create-json
         uses: jsdaniell/create-json@v1.2.3
         with:
@@ -53,11 +53,11 @@ jobs:
           dir: "config/"
 
       - name: Setup credentials
-        if: ${{ author == '${{ secrets.BOTNORREA_V2_NAME }}' }}
+        if: ${{ author == 'botnorrea-v2' }}
         run: serverless config credentials --provider aws --key ${{ secrets.KEY_ID }} --secret ${{ secrets.SECRET_ACCESS_KEY }} --profile ${{ secrets.PROFILE }}
 
       - name: Deploy
-        if: ${{ author == '${{ secrets.BOTNORREA_V2_NAME }}' }}
+        if: ${{ author == 'botnorrea-v2' }}
         run: npm run prod:deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.KEY_ID }}
