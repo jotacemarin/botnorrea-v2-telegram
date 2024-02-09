@@ -24,12 +24,20 @@ jobs:
 
       # Create new git tag
       - name: Create new git tag
+        id: create_new_tag
         if: ${{ steps.obtener_autor_commit.outputs.autor_commit != 'botnorrea-v2' }}
         run: |
           git config --global user.email "${{ secrets.BOTNORREA_V2_EMAIL }}"
           git config --global user.name "${{ secrets.BOTNORREA_V2_NAME }}"
           npm version minor
-          git push
+          echo "::set-output name=new_tag::$(git describe --tags --abbrev=0)"
+
+      # Push the new git tag
+      - name: Push the new git tag
+        if: ${{ steps.obtener_autor_commit.outputs.autor_commit != 'botnorrea-v2' }}
+        run: |
+          git push origin master
+          git push origin ${{ steps.create_new_tag.outputs.create_new_tag }}
 
       # Deploy to production
       - name: Using Node.js ${{ matrix.node-version }}
