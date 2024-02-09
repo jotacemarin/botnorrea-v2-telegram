@@ -43,5 +43,8 @@ jobs:
           json: ${{ secrets.CONFIG_FILE_DEV }}
           dir: "config/"
 
+      - name: Setup credentials
+        run: serverless config credentials --provider aws --key ${{ secrets.KEY_ID }} --secret ${{ secrets.SECRET_ACCESS_KEY }} --profile ${{ secrets.PROFILE }}
+
       - name: Deploy
         run: npm run dev:deploy
