@@ -1,5 +1,7 @@
 import { EntityTypeTg, UpdateTg } from "../models";
 
+const { BOT_USERNAME } = process.env;
+
 const filterTextCommandEntity = ({ type, offset }) =>
   type === EntityTypeTg.BOT_COMMAND && offset === 0;
 
@@ -33,7 +35,9 @@ const getTextCommandKey = (
   position: { offset: number; length: number }
 ): string => {
   const text = body?.message?.text ?? body?.message?.caption;
-  const key = text!.substring(position?.offset, position?.length);
+  const key = text!
+    .substring(position?.offset, position?.length)
+    .replace(`@${BOT_USERNAME}`, "");
 
   return key?.trim();
 };

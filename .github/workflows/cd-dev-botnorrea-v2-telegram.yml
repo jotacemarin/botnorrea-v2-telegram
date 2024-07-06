@@ -21,7 +21,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install serverless framework
-        run: npm install -g serverless
+        run: npm install -g serverless@3.38.0
 
       - name: Install dependencies
         run: npm i
