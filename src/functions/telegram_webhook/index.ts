@@ -23,7 +23,7 @@ const getCommand = async (body: UpdateTg): Promise<Command | null> => {
 
 const saveChatMessage = async (body: UpdateTg): Promise<void> => {
   await ChatMessageDao.initInstance();
-  await ChatMessageDao.save({ message: body });
+  await ChatMessageDao.save({ message: body, expireAt: new Date() });
 };
 
 const request = async (command: Command, body: UpdateTg) => {
@@ -121,7 +121,6 @@ export const telegramWebhook = async (
     console.log(`webhook message: \n${JSON.stringify(body, null, 2)} `);
   }
 
-  // to do persist messages
   await saveChatMessage(body);
 
   const response = await execute(body);

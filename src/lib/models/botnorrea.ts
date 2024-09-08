@@ -39,4 +39,7 @@ export interface Command {
 export interface ChatMessage {
   _id?: ID | string;
   message: UpdateTg;
+  expireAt?: Date | AtedAt | string;
+  createdAt?: AtedAt | string;
+  updatedAt?: AtedAt | string;
 }

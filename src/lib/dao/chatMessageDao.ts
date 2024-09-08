@@ -16,10 +16,10 @@ export class ChatMessageDao {
       ChatMessageDao.chatMessageSchema = new Schema(
         {
           message: { type: Schema.Types.Mixed, required: true },
+          expireAt: { type: Schema.Types.Date, expires: 20 },
         },
         {
           timestamps: true,
-          // expireAfterSeconds: 43200,
           expireAfterSeconds: 30,
         }
       );
