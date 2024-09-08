@@ -38,4 +38,13 @@ export class ChatMessageDao {
   ): Promise<ChatMessage | null> {
     return ChatMessageDao.chatMessageModel.create(chatMessage);
   }
+
+  public static async getAll(): Promise<Array<ChatMessage>> {
+    const chatMessages = await ChatMessageDao.chatMessageModel.find({}).exec();
+    if (!chatMessages || !chatMessages?.length) {
+      return [];
+    }
+
+    return chatMessages;
+  }
 }
