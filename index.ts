@@ -11,3 +11,4 @@ export { telegramCleanReplyMarkup } from "./src/functions/telegram_clean_reply_m
 export { telegramMembersMute } from "./src/functions/telegram_members_mute";
 export { telegramMembersUnmute } from "./src/functions/telegram_members_unmute";
 export { telegramPublicWebhook } from "./src/functions/telegram_public_webhook";
+export { telegramGetMessages } from "./src/functions/telegram_get_messages";

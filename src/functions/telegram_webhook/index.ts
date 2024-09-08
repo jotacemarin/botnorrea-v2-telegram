@@ -3,7 +3,7 @@ import { OK, BAD_REQUEST, NO_CONTENT } from "http-status";
 import axios from "axios";
 import { getTextCommand } from "../../lib/utils/telegramHelper";
 import { Command, UpdateTg, User, FormattingOptionsTg } from "../../lib/models";
-import { CommandDao, UserDao } from "../../lib/dao";
+import { CommandDao, UserDao, ChatMessageDao } from "../../lib/dao";
 import { TelegramService } from "../../lib/services";
 
 const { STAGE } = process.env;
@@ -19,6 +19,11 @@ const getCommand = async (body: UpdateTg): Promise<Command | null> => {
   }
 
   return CommandDao.findByKey(key);
+};
+
+const saveChatMessage = async (body: UpdateTg): Promise<void> => {
+  await ChatMessageDao.initInstance();
+  await ChatMessageDao.save({ telegramMessage: body, expireAt: new Date() });
 };
 
 const request = async (command: Command, body: UpdateTg) => {
@@ -115,6 +120,9 @@ export const telegramWebhook = async (
   if (STAGE === "dev") {
     console.log(`webhook message: \n${JSON.stringify(body, null, 2)} `);
   }
+
+  await saveChatMessage(body);
+
   const response = await execute(body);
 
   const endDate = new Date();

@@ -1,3 +1,5 @@
+import { UpdateTg } from "./telegram";
+
 interface ID {
   $oid: string;
 }
@@ -13,6 +15,7 @@ export interface User {
   firstname?: string;
   lastname?: string;
   qrPathId?: string;
+  key?: string;
   createdAt?: AtedAt | string;
   updatedAt?: AtedAt | string;
 }
@@ -30,6 +33,14 @@ export interface Command {
   key: string;
   url: string;
   enabled: boolean;
+  createdAt?: AtedAt | string;
+  updatedAt?: AtedAt | string;
+}
+
+export interface ChatMessage {
+  _id?: ID | string;
+  telegramMessage: UpdateTg;
+  expireAt?: Date | AtedAt | string;
   createdAt?: AtedAt | string;
   updatedAt?: AtedAt | string;
 }

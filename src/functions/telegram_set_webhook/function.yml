@@ -8,3 +8,6 @@ events:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/set-webhook
       method: POST
       cors: true
+      authorizer:
+        name: telegramAuthorizer
+        resultTtlInSeconds: 0

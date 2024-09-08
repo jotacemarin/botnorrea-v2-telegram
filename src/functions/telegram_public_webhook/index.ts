@@ -1,7 +1,6 @@
 import { APIGatewayEvent, Callback, Context } from "aws-lambda";
-import { OK, BAD_REQUEST, UNAUTHORIZED } from "http-status";
+import { OK, BAD_REQUEST } from "http-status";
 import { TelegramService } from "../../lib/services";
-import { UserDao } from "../../lib/dao";
 import { FormattingOptionsTg } from "../../lib/models";
 
 interface PublicWebhookParams {
@@ -12,26 +11,6 @@ interface PublicWebhookParams {
   text_is_spoiler?: boolean;
   media_is_spoiler?: boolean;
 }
-
-const checkAuthorization = async (event: APIGatewayEvent) => {
-  if (
-    !event?.queryStringParameters?.id ||
-    !event?.queryStringParameters?.username
-  ) {
-    return false;
-  }
-
-  const { id, username } = event?.queryStringParameters;
-
-  await UserDao.initInstance();
-
-  try {
-    const user = await UserDao.findByIdAndUsername(id, username);
-    return Boolean(user);
-  } catch (_error) {
-    return false;
-  }
-};
 
 const buildText = (body: PublicWebhookParams): string | undefined => {
   if (!body?.text) {
@@ -137,11 +116,6 @@ export const telegramPublicWebhook = async (
   callback: Callback
 ): Promise<void> => {
   context.callbackWaitsForEmptyEventLoop = false;
-
-  const checkAuth = await checkAuthorization(event);
-  if (!checkAuth) {
-    return callback(null, { statusCode: UNAUTHORIZED });
-  }
 
   if (!event?.body) {
     return callback(null, { statusCode: BAD_REQUEST });

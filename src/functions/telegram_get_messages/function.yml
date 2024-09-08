@@ -1,0 +1,13 @@
+name: ${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}-telegram-get-messages
+handler: index.telegramGetMessages
+memorySize: 128
+timeout: 30
+reservedConcurrency: 5
+events:
+  - http:
+      path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/get-messages
+      method: GET
+      cors: true
+      authorizer:
+        name: telegramAuthorizer
+        resultTtlInSeconds: 0

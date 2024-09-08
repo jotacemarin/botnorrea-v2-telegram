@@ -2,7 +2,7 @@ import {
   APIGatewayAuthorizerResult,
   APIGatewayTokenAuthorizerEvent,
 } from "aws-lambda";
-import { AuthService } from "../../lib/services";
+import { UserDao } from "../../lib/dao/userDao";
 
 enum Effect {
   DENY = "Deny",
@@ -33,20 +33,20 @@ const extractToken = (authorizationToken: string) => {
   const [_, token] = authorizationToken?.split(" ");
   const cleanToken = atob(token);
   const [clientId, clientSecret] = cleanToken?.split(":");
+  console.log("extractToken", `${clientId}, ${clientSecret}`);
   return { clientId, clientSecret };
 };
 
-const loginToAuth0 = async (
-  clientId: string | number,
-  clientSecret: string | number
+const login = async (
+  clientId: string,
+  clientSecret: string
 ): Promise<Effect> => {
   try {
-    AuthService.initInstance();
-    await AuthService.getToken(clientId, clientSecret);
-    return Effect.ALLOW;
+    await UserDao.initInstance();
+    const user = await UserDao.findByKey(clientId, clientSecret);
+    return Boolean(user) ? Effect.ALLOW : Effect.DENY;
   } catch (error) {
-    console.log(`${Effect.DENY}: ${error.message}`, error);
-    return Effect.ALLOW;
+    return Effect.DENY;
   }
 };
 
@@ -54,12 +54,10 @@ export const telegramAuthorizer = async (
   event: APIGatewayTokenAuthorizerEvent
 ): Promise<APIGatewayAuthorizerResult> => {
   if (!event?.authorizationToken) {
-    console.log(`Effect: ${Effect.DENY}`);
     return buildPolicy(event.methodArn, Effect.DENY);
   }
 
   const { clientId, clientSecret } = extractToken(event.authorizationToken);
-  const effect = await loginToAuth0(clientId, clientSecret);
-  console.log(`Effect: ${effect}`);
+  const effect = await login(clientId, clientSecret);
   return buildPolicy(event.methodArn, effect);
 };
