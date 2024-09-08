@@ -1,3 +1,5 @@
+import { UpdateTg } from "./telegram";
+
 interface ID {
   $oid: string;
 }
@@ -32,4 +34,9 @@ export interface Command {
   enabled: boolean;
   createdAt?: AtedAt | string;
   updatedAt?: AtedAt | string;
+}
+
+export interface ChatMessage {
+  _id?: ID | string;
+  message: UpdateTg;
 }

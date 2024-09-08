@@ -1,4 +1,4 @@
-export { Command, Crew, User } from "./botnorrea";
+export { Command, Crew, User, ChatMessage } from "./botnorrea";
 export {
   ChatTg,
   ChatTypeTg,
