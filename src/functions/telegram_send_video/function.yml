@@ -8,3 +8,4 @@ events:
       path: /${self:custom.secrets.service.name}-${self:custom.secrets.provider.stage}/telegram/send-video
       method: POST
       cors: true
+      authorizer: telegramAuthorizer
