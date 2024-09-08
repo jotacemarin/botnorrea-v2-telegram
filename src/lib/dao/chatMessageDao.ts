@@ -41,7 +41,7 @@ export class ChatMessageDao {
 
   public static async getAll(chatId: Number): Promise<Array<ChatMessage>> {
     const chatMessages = await ChatMessageDao.chatMessageModel
-      .find({ telegramMessage: { message: { chat: { id: chatId } } } })
+      .find({ "telegramMessage.message.chat.id": chatId })
       .exec();
     if (!chatMessages || !chatMessages?.length) {
       return [];
