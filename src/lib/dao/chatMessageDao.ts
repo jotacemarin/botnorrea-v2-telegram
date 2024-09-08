@@ -3,7 +3,7 @@ import { ChatMessage } from "../models";
 import { MongodbService } from "../services";
 
 export class ChatMessageDao {
-  private static schemaName: string = "chatMessage";
+  private static schemaName: string = "chat_message";
   private static chatMessageSchema: Schema<ChatMessage>;
   public static chatMessageModel: Model<ChatMessage>;
 
@@ -15,7 +15,7 @@ export class ChatMessageDao {
     if (!ChatMessageDao.chatMessageSchema) {
       ChatMessageDao.chatMessageSchema = new Schema(
         {
-          message: { type: Schema.Types.Mixed, required: true },
+          telegramMessage: { type: Schema.Types.Mixed, required: true },
           expireAt: { type: Schema.Types.Date, expires: 43200 },
         },
         {
@@ -39,8 +39,10 @@ export class ChatMessageDao {
     return ChatMessageDao.chatMessageModel.create(chatMessage);
   }
 
-  public static async getAll(): Promise<Array<ChatMessage>> {
-    const chatMessages = await ChatMessageDao.chatMessageModel.find({}).exec();
+  public static async getAll(chatId: Number): Promise<Array<ChatMessage>> {
+    const chatMessages = await ChatMessageDao.chatMessageModel
+      .find({ telegramMessage: { message: { chat: { id: chatId } } } })
+      .exec();
     if (!chatMessages || !chatMessages?.length) {
       return [];
     }

@@ -23,7 +23,7 @@ const getCommand = async (body: UpdateTg): Promise<Command | null> => {
 
 const saveChatMessage = async (body: UpdateTg): Promise<void> => {
   await ChatMessageDao.initInstance();
-  await ChatMessageDao.save({ message: body, expireAt: new Date() });
+  await ChatMessageDao.save({ telegramMessage: body, expireAt: new Date() });
 };
 
 const request = async (command: Command, body: UpdateTg) => {

@@ -33,6 +33,7 @@ const extractToken = (authorizationToken: string) => {
   const [_, token] = authorizationToken?.split(" ");
   const cleanToken = atob(token);
   const [clientId, clientSecret] = cleanToken?.split(":");
+  console.log("extractToken", `${clientId}, ${clientSecret}`);
   return { clientId, clientSecret };
 };
 
