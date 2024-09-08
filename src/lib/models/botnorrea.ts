@@ -15,6 +15,7 @@ export interface User {
   firstname?: string;
   lastname?: string;
   qrPathId?: string;
+  key?: string;
   createdAt?: AtedAt | string;
   updatedAt?: AtedAt | string;
 }

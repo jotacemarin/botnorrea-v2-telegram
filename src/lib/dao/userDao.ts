@@ -75,6 +75,15 @@ export class UserDao {
     return null;
   }
 
+  public static async findByKey(id: string, key: string): Promise<User | null> {
+    const document = await UserDao.userModel.findOne({ id, key }).exec();
+    if (document) {
+      return { ...document.toObject() } as User;
+    }
+
+    return null;
+  }
+
   public static async save(user: User): Promise<User | null> {
     if (!user?.id) {
       throw new Error("id is missing");
