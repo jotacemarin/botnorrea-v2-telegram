@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosInstance } from "axios";
 import { EntityTg, UserTg, FormattingOptionsTg } from "../models";
 import { MessageTg } from "../models/telegram";
 
-const { TELEGRAM_BOT_TOKEN, USERNAME, PASSWORD } = process.env;
+const { TELEGRAM_BOT_TOKEN } = process.env;
 
 interface SetWebhookResponse {
   ok: boolean;
@@ -157,7 +157,6 @@ export class TelegramService {
     if (!this.instance) {
       this.instance = axios.create({
         baseURL: `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`,
-        auth: { username: `${USERNAME}`, password: `${PASSWORD}` },
       });
     }
   }
