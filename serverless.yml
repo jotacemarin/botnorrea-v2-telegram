@@ -39,3 +39,4 @@ functions:
   telegramMembersMute: ${file(./src/functions/telegram_members_mute/function.yml)}
   telegramMembersUnmute: ${file(./src/functions/telegram_members_unmute/function.yml)}
   telegramPublicWebhook: ${file(./src/functions/telegram_public_webhook/function.yml)}
+  telegramGetAllMessages: ${file(./src/functions/telegram_get_messages/function.yml)}

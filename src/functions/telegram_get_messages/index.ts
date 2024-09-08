@@ -9,7 +9,7 @@ const execute = async (): Promise<any> => {
   return { statusCode: OK, body: JSON.stringify(messages) };
 };
 
-export const telegramGetAll = async (
+export const telegramGetMessages = async (
   event: APIGatewayEvent,
   context: Context,
   callback: Callback
