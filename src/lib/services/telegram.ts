@@ -148,6 +148,17 @@ interface EditMessageReplyMarkupResponse {
   result: MessageTg;
 }
 
+export interface DeleteMessageParams {
+  chat_id: number | string;
+  message_id?: number | string;
+  message_ids?: Array<number | string>;
+}
+
+interface DeleteMessageResponse {
+  ok: boolean;
+  result: boolean;
+}
+
 export class TelegramService {
   private static instance: AxiosInstance;
 
@@ -224,5 +235,11 @@ export class TelegramService {
     params: RestrictChatMemberParams
   ): Promise<AxiosResponse<{ ok: boolean; result: boolean }>> {
     return TelegramService.instance.post("/restrictChatMember", params);
+  }
+
+  public static deleteMessage(
+    params: DeleteMessageParams
+  ): Promise<AxiosResponse<DeleteMessageResponse>> {
+    return TelegramService.instance.post("/deleteMessage", params);
   }
 }

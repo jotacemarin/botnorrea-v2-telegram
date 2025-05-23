@@ -33,6 +33,7 @@ functions:
   telegramWebhook: ${file(./src/functions/telegram_webhook/function.yml)}
   telegramSendMessage: ${file(./src/functions/telegram_send_message/function.yml)}
   telegramEditMessage: ${file(./src/functions/telegram_edit_message/function.yml)}
+  telegramDeleteMessage: ${file(./src/functions/telegram_delete_message/function.yml)}
   telegramSendPhoto: ${file(./src/functions/telegram_send_photo/function.yml)}
   telegramSendVideo: ${file(./src/functions/telegram_send_video/function.yml)}
   telegramDebug: ${file(./src/functions/telegram_debug/function.yml)}
