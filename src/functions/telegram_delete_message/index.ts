@@ -19,13 +19,6 @@ const execute = async (
     };
   }
 
-  if (!body?.text) {
-    return {
-      statusCode: BAD_REQUEST,
-      body: JSON.stringify({ error: "text is missing" }),
-    };
-  }
-
   TelegramService.initInstance();
   const editMessageResponse = await TelegramService.deleteMessage(body);
 
