@@ -4,7 +4,7 @@
   "description": "Botnorrea v2 core",
   "main": "index.js",
   "engines": {
-    "node": "22.16.0"
+    "node": "20.19.3"
   },
   "scripts": {
     "test": "jest",
