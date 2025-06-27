@@ -5,7 +5,7 @@
 
 ## Botnorrea v2 telegram dependencies
 
-- nodejs `18.19.0`
+- nodejs `20.19.3`
 - serverles framework `3`
 - @aws-sdk/client-dynamodb `3.388.0`
 - @aws-sdk/lib-dynamodb `3.388.0`
