@@ -1,8 +1,11 @@
 {
   "name": "botnorrea-v2-telegram",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Botnorrea v2 core",
   "main": "index.js",
+  "engines": {
+    "node": "22.16.0"
+  },
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
