@@ -29,7 +29,13 @@ const saveChatMessage = async (body: UpdateTg): Promise<void> => {
 const request = async (command: Command, body: UpdateTg) => {
   try {
     console.log(`${command.key}: ${command.url}`);
-    await axios.post(command.url, body);
+    const config = {};
+
+    if (command?.auth) {
+      config["auth"] = command?.auth;
+    }
+
+    await axios.post(command.url, body, config);
   } catch (error) {
     await TelegramService.sendMessage({
       chat_id: body.message!.chat.id,
