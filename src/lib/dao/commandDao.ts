@@ -18,6 +18,10 @@ export class CommandDao {
           key: { type: String, required: true, unique: true },
           url: { type: String, required: true, unique: true, index: "text" },
           enabled: { type: Boolean, required: true },
+          auth: {
+            username: { type: String, required: false },
+            password: { type: String, required: false },
+          },
         },
         {
           timestamps: true,

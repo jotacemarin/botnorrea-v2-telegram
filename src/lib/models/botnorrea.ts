@@ -33,6 +33,10 @@ export interface Command {
   key: string;
   url: string;
   enabled: boolean;
+  auth?: {
+    username: string;
+    password: string;
+  };
   createdAt?: AtedAt | string;
   updatedAt?: AtedAt | string;
 }
