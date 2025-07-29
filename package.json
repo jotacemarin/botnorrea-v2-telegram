@@ -1,10 +1,10 @@
 {
   "name": "botnorrea-v2-telegram",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Botnorrea v2 core",
   "main": "index.js",
   "engines": {
-    "node": "20.19.3"
+    "node": "18.20.8"
   },
   "scripts": {
     "test": "jest",
