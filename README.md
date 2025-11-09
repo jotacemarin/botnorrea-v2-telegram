@@ -3,6 +3,13 @@
   <p align="center">Telegram core for botnorrea<p>
 </p>
 
+<p>
+  <img src="https://img.shields.io/badge/stability-frozen-blue" alt="X (Twitter)">
+</p>
+
+## No fork this repository
+The lambdas on develop and prod will be destroyed soon
+
 ## Botnorrea v2 telegram dependencies
 
 - nodejs `18.19.0`
